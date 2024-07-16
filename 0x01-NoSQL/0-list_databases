@@ -1,2 +1,4 @@
 #!/bin/bash
+# List DBs
+
 show dbs
