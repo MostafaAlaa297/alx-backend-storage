@@ -1,2 +1,2 @@
-#!/usr/bin/bash
-echo 'show dbs'
+#!/bin/bash
+echo 'show dbs' | mongo
