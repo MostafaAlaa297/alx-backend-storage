@@ -7,7 +7,7 @@ logsDB
 from pymongo import MongoClient
 
 
-def log_stats(nginx_collection):
+def log_stats(nginx):
 	"""return log stats"""
 	logs_count = nginx.count_documents({})
 	get_count = nginx.count_documents({"method": "GET"})
@@ -15,7 +15,10 @@ def log_stats(nginx_collection):
 	put_count = nginx.count_documents({"method": "PUT"})
 	patch_count = nginx.count_documents({"method": "PATCH"})
 	delete_count = nginx.count_documents({"method": "DELETE"})
-	status_check_count = nginx.count_documents({"method": "GET", "path": "/status"})
+	status_check_count = nginx.count_documents(
+						{
+							"method": "GET", "path": "/status"
+						})
 
 	print("{} logs".format(logs_count))
 	print("Methods:")
