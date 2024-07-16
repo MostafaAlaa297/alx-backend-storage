@@ -8,5 +8,5 @@ Pymongo module
 
 def insert_school(mongo_collection, **kwargs):
 	"""Return an empty list if no document in the collection"""
-	new_doc = mongo_collection.insert({key: value for key, value in kwargs.items()})
-	return new_doc.insertd_id
+	result = mongo_collection.insert_one(kwargs)
+	return result.insertd_id
