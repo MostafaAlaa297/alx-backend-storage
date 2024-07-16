@@ -7,9 +7,8 @@ logsDB
 from pymongo import MongoClient
 
 
-def log_stats(nginx):
+def log_stats(nginx_collection):
 	"""return log stats"""
-
 	logs_count = nginx.count_documents({})
 	get_count = nginx.count_documents({"method": "GET"})
 	post_count = nginx.count_documents({"method": "POST"})
@@ -28,7 +27,7 @@ def log_stats(nginx):
 	print("{} status check".format(status_check_count))
 
 if __name__ == "__main__":
-	client = MongoClient('mongodb://127.0.0.1:27017')
-        nginx = client.logs.nginx
-	log_stats(nginx)
+	client = MongoClient('localhost',27017)
+        nginx_collection = client.logs.nginx
+	log_stats(nginx_collection)
 
