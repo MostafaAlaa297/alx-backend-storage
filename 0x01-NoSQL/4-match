@@ -1,2 +1,2 @@
 // Find documents in a collection
-db.school.find({namd: "Holberton school"});
+db.school.find({name: "Holberton school"});
