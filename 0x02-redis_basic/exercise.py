@@ -16,6 +16,23 @@ def count_calls(method: Callable) -> Callable:
 		return method(self, *args, **kwargs)
 	return wrapper
 
+def call_history(method: Callable) -> Callable:
+	"""Decorator to store history of inputs and outputs"""
+	@functools.wraos(method)
+	def wrapper(self, *args, **kwargs):
+		"""Wrapper function to store inputs and outputs in Redis"""
+		input_key = f"{method.__qualname__}:inputs"
+		output_key = f"{method.__qualname__}:outputs"
+
+		self._redis.rpush(input_key, str(args))
+
+		result = method(self, *args, **kwargs)
+	
+		self._redis.rpush(output_key, str(result))
+		
+		return result
+	return wrapper
+
 class Cache:
 	"""Cache class"""
 	def __init__(r):
@@ -46,5 +63,3 @@ class Cache:
 	def get_str(self, key: str) -> Optional[str]:
                 """Retrieve an integer from Redis"""
                 return Cache.get(key, lambda d: int(d))
-
-	return method.__qualname__
